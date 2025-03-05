@@ -1,103 +1,144 @@
-# 📊 DS2002 - Data Project 1: ETL Data Processor
+# 📊 Movie Rental Data Warehouse Platform
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-orange.svg)](https://www.mysql.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.0%2B-green.svg)](https://www.mongodb.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 🎯 Project Overview
-This project demonstrates the implementation of an ETL (Extract, Transform, Load) pipeline for data processing. It showcases the ability to work with various data systems (OLTP/OLAP) and handle different data formats through a comprehensive data mart solution.
+A comprehensive data warehouse solution for movie rental business analytics, integrating data from multiple sources including traditional RDBMS, NoSQL databases, and REST APIs. The platform provides a unified view of rental transactions, movie performance metrics, customer behavior, and staff performance.
 
 ## 🔍 Key Features
-- Dimensional data mart design
-- Multi-source ETL pipeline implementation
-- SQL query optimization
-- Error handling and data validation
-- Cross-platform data integration
+- Multi-source data integration (SQL, NoSQL, API)
+- Dimensional data warehouse model
+- Automated ETL pipeline
+- Movie performance analytics
+- Customer behavior tracking
+- Revenue analysis system
 
-## 📊 Project Components
+## 📊 Architecture Components
 
-### 1. Data Mart Design
-- Dimensional model implementation
-- Date dimension for temporal analysis
-- Multiple dimension tables (minimum 2)
-- Fact table for business process metrics
+### 1. Data Warehouse Schema
+- **Fact Table**: 
+  - `fact_payments`: Rental transactions with temporal and financial metrics
+- **Dimension Tables**:
+  - `customer`: Customer demographics and activity
+  - `staff`: Employee information
+  - `inventory`: Comprehensive movie data including:
+    - Basic film information
+    - Award statistics
+    - Ratings data
+    - Revenue metrics
+  - `date_dimension`: Temporal analysis support
 
-### 2. ETL Pipeline
-- Data extraction from multiple sources:
-  - SQL database (MySQL/Oracle/SQL Server)
-  - NoSQL database (MongoDB/Redis/Cassandra)
-  - File system (local/remote)
-  - API data (JSON/CSV format)
-- Data transformation and cleaning
-- Automated data loading process
-- Error handling implementation
+### 2. Data Sources
+- **Sakila Database**: Core rental business data
+  - Customer records
+  - Staff information
+  - Basic movie details
+  - Transaction history
+- **MongoDB (sample_mflix)**:
+  - Movie ratings
+  - Award information
+- **TMDB API**:
+  - Movie revenue data
+  - Additional film metrics
 
-### 3. SQL Implementation
-- Complex SELECT statements
-- Multi-table joins (3+ tables)
-- Aggregation functions
-- Data grouping operations
+### 3. ETL Pipeline
+- **Extract**:
+  - SQL queries for transactional data
+  - MongoDB connection for movie metrics
+  - REST API integration for revenue data
+- **Transform**:
+  - Data cleaning and standardization
+  - ID matching across sources
+  - Null handling
+  - Format consistency enforcement
+- **Load**:
+  - Staged loading process
+  - Dimension table population
+  - Fact table integration
+  - Data validation
 
-## 🛠️ Technologies Used
-- **Python**: ETL pipeline implementation
-- **SQL**: Data definition and manipulation
-- **Databases**: 
-  - Relational: MySQL/Oracle/SQL Server
-  - NoSQL: MongoDB/Redis/Cassandra
-- **Data Formats**: JSON, CSV, API payloads
+## 🛠️ Technology Stack
+- **Core Processing**: Python 3.8+
+- **Data Storage**: 
+  - MySQL 8.0+ (Primary warehouse)
+  - MongoDB 4.0+ (Source system)
+- **Python Libraries**:
+  - `pandas`: Data manipulation
+  - `pymongo`: MongoDB integration
+  - `requests`: API handling
+- **APIs**: TMDB API for movie data
 
-## 📁 Repository Structure
+## 📁 Project Structure
 ```bash
 project/
-├── src/                  # Source code
-│   ├── etl/             # ETL pipeline scripts
-│   └── sql/             # SQL queries and schemas
-├── data/
-│   ├── raw/             # Original source data
-│   └── processed/       # Transformed data
-├── docs/                # Documentation
-└── requirements.txt     # Python dependencies
+├── Lab 1/
+│   ├── SQL/
+│   │   ├── 1_schema_creation.sql     # Database schema
+│   │   ├── 2_table_population.sql    # Data loading
+│   │   ├── 3_date_dimension_creation.sql
+│   │   ├── 4_date_key_creation.sql
+│   │   └── 5_query.sql              # Analysis queries
+│   ├── Python/
+│   │   ├── lab_api_call.ipynb       # TMDB API integration
+│   │   └── lab_mongo_call.ipynb     # MongoDB extraction
+│   ├── Data/
+│   │   ├── apidat.csv              # API extracted data
+│   │   └── mongodat.csv            # MongoDB extracted data
+│   └── Documentation/
+        └── Data Sources.docx        # Source documentation
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Python 3.8+
-- MySQL or compatible RDBMS
-- NoSQL database system
+- MySQL 8.0+
+- MongoDB 4.0+
+- TMDB API key
 - Required Python packages:
   ```bash
-  pip install -r requirements.txt
+  pip install pandas pymongo requests
   ```
 
-### Setup and Deployment
+### Setup Process
 1. Clone the repository
-2. Install dependencies
-3. Configure database connections
-4. Run ETL pipeline:
-   ```bash
-   python src/etl/main.py
-   ```
+2. Configure database connections:
+   - MySQL credentials
+   - MongoDB connection string
+   - TMDB API key
+3. Run schema creation scripts
+4. Execute ETL pipeline:
+   - Run MongoDB extraction
+   - Process API data
+   - Load dimension tables
+   - Populate fact table
 
-## 📝 Project Requirements
-- Date dimension implementation
-- Minimum 2 additional dimension tables
-- 1+ fact table
-- Data from 3+ different sources
-- Comprehensive error handling
-- SQL query demonstrations
+## 📊 Data Model
+- **Star Schema Design**
+  - Centralized fact table (payments/rentals)
+  - Connected dimension tables
+  - Temporal dimension support
+  - Movie metrics integration
 
-## 🎓 Academic Context
-This project is developed for DS2002 at the University of Virginia, focusing on data integration and ETL pipeline development.
+## 🔍 Analysis Capabilities
+- Rental pattern analysis
+- Revenue tracking
+- Movie performance metrics
+- Customer behavior insights
+- Staff performance evaluation
+- Temporal trend analysis
 
-## 👤 Author
+## 👤 Developer
 Andre Chuabio
 - GitHub: [@AndreChuabio](https://github.com/AndreChuabio)
 
 ## 🙏 Acknowledgments
-- UVA DS2002 course staff
-- Sample data providers
-- Open-source community
+- TMDB API for movie data
+- MongoDB Atlas for sample datasets
+- MySQL Sakila database
 
 ---
-⭐️ Developed at the University of Virginia 
+⭐️ Built with modern data engineering practices
